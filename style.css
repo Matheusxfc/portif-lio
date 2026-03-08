@@ -74,3 +74,21 @@
             transform: translateY(-5px); /* Move o card 5px para cima */
     box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; /* Aumenta a sombra */
 }
+
+/* Estado inicial dos elementos: transparentes e levemente rebaixados */
+.oculto {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+/* Estado final dos elementos quando o JavaScript adiciona a classe 'mostrar' */
+.mostrar {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Adicionando rolagem suave para os links do menu (não precisa de JS para isso!) */
+html {
+    scroll-behavior: smooth;
+}
