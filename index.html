@@ -1,120 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Portfólio - Matheus Bueno</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href=
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity=
-"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-         crossorigin="anonymous">
-         <link rel="stylesheet" href=
-"https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-            integrity=
-"sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-             crossorigin="anonymous">
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
+<button id="btnAdmin" class="btn btn-warning shadow" style="position: fixed; bottom: 20px; right: 20px; z-index: 1050; border-radius: 50px;">
+  <i class="fa-solid fa-pen-to-square me-2"></i>Modo Editar
+</button>
+
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Meu Portfólio</a>
+    <a class="navbar-brand editavel" id="nav-brand" href="#">Meu Portfólio</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Mim</a></li>
+        <li class="nav-item"><a class="nav-link" href="#curriculo">Currículo</a></li>
+        <li class="nav-item"><a class="nav-link" href="#projetos">Projetos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+        
         <li class="nav-item">
-          <a class="nav-link" href="#sobre">Sobre Mim</a> </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#curriculo">Currículo</a> </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#projetos">Projetos</a> </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contato">Contato</a> </li>
+          <button id="btnDark" class="btn btn-outline-light btn-sm ms-3 mt-1">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-   <section id="sobre" class="py-5">
-<div class="container my-5">
-  <div class="card mb-3 shadow border-0" style="max-width: 1000px; margin: auto;">
-    <div class="row g-0 align-items-center">
-      
-      <div class="col-md-4 text-center p-4 bg-light h-100">
-        <img src="./imagens/fafa2c63-fa96-4444-ab9c-1a822398d354.jpg" 
-             class="img-fluid rounded-circle shadow-sm" 
-             alt="Foto de Matheus Bueno"
-             style="width: 200px; height: 200px; object-fit: cover;">
+
+<section id="sobre" class="py-5 mt-5">
+  <div class="container my-5">
+    <div class="card mb-3 shadow border-0" style="max-width: 1000px; margin: auto;">
+      <div class="row g-0 align-items-center">
         
-        <div class="mt-3">
-           <small class="text-muted">São José dos Campos - SP</small>
+        <div class="col-md-4 text-center p-4 bg-light h-100">
+          <img src="./imagens/fafa2c63-fa96-4444-ab9c-1a822398d354.jpg" 
+               class="img-fluid rounded-circle shadow-sm" 
+               alt="Foto de Matheus Bueno"
+               style="width: 200px; height: 200px; object-fit: cover;">
+          <div class="mt-3">
+             <small class="text-muted editavel" id="perfil-local">São José dos Campos - SP</small>
+          </div>
         </div>
-      </div>
 
-      <div class="col-md-8">
-        <div class="card-body p-4">
-          <h2 class="card-title fw-bold">Matheus Bueno da Silva Barroso</h2>
-          <h5 class="text-primary mb-3">Estudante de Desenvolvimento de Software</h5>
-          
-          <hr>
+        <div class="col-md-8">
+          <div class="card-body p-4">
+            <h2 class="card-title fw-bold editavel" id="perfil-nome">Matheus Bueno da Silva Barroso</h2>
+            
+            <h5 class="text-primary mb-3 editavel" id="perfil-titulo">Estudante de Desenvolvimento de Software</h5>
+            <hr>
 
-          <div class="mb-3">
-            <h6 class="fw-bold"><i class="fa-solid fa-user me-2"></i>Quem eu sou?</h6>
-            <p class="card-text text-secondary">
-              Me chamo Matheus Buenho, tenho 18 anos e meu primeiro contato com tecnologia foi através dos jogos eletrônicos. 
-              Essa curiosidade evoluiu para o vasto mundo da programação, despertando meu interesse em cursar e me aprofundar na área de computação.
-            </p>
+            <div class="mb-3">
+              <h6 class="fw-bold"><i class="fa-solid fa-user me-2"></i>Quem eu sou?</h6>
+              <p class="card-text text-secondary editavel" id="perfil-sobre">
+                Me chamo Matheus Buenho, tenho 18 anos e meu primeiro contato com tecnologia foi através dos jogos eletrônicos. 
+                Essa curiosidade evoluiu para o vasto mundo da programação, despertando meu interesse em cursar e me aprofundar na área de computação.
+              </p>
+            </div>
+
+            <div class="mb-3">
+              <h6 class="fw-bold"><i class="fa-solid fa-graduation-cap me-2"></i>Formação</h6>
+              <p class="card-text editavel" id="perfil-formacao">Cursando <strong>Desenvolvimento de Software Multiplataforma</strong> na Fatec SJC.</p>
+            </div>
+
+            <div>
+              <h6 class="fw-bold"><i class="fa-solid fa-bullseye me-2"></i>Meu Objetivo</h6>
+              <p class="card-text text-secondary editavel" id="perfil-objetivo">
+                Desenvolver novas tecnologias e aplicações inteligentes, com foco em <strong>Inteligência Artificial</strong>, 
+                visando ajudar pessoas em campos de pesquisa, na indústria ou no cotidiano, ajudando na automatização de processos
+                e em desenvolver novas tecnologias.
+              </p>
+            </div>
+
           </div>
-
-          <div class="mb-3">
-            <h6 class="fw-bold"><i class="fa-solid fa-graduation-cap me-2"></i>Formação</h6>
-            <p class="card-text">Cursando <strong>Desenvolvimento de Software Multiplataforma</strong> na Fatec SJC.</p>
-          </div>
-
-          <div>
-            <h6 class="fw-bold"><i class="fa-solid fa-bullseye me-2"></i>Meu Objetivo</h6>
-            <p class="card-text text-secondary">
-              Desenvolver novas tecnologias e aplicações inteligentes, com foco em <strong>Inteligência Artificial</strong>, 
-              visando ajudar pessoas em campos de pesquisa, na indústria ou no cotidiano, ajudando na automatização de processos
-              e em desenvolver novas tecnologias.
-            </p>
-          </div>
-
         </div>
       </div>
     </div>
   </div>
-</div>
 </section>
-   <!--Aqui é criado o card da parte de formação acadêmica--> 
- <section id="curriculo" class="bg-light py-5 oculto">
-    
+
+<section id="curriculo" class="bg-light py-5">
+  <div class="container">
     <h3 class="text-center mb-5 fw-bold">Currículo Profissional</h3>
 
-    <div class="row g-4"> <div class="col-md-6">
+    <div class="row g-4"> 
+      <div class="col-md-6">
         <div class="card h-100 shadow-sm border-0">
           <div class="card-body p-4">
             <h4 class="card-title mb-4 text-primary">
               <i class="fa-solid fa-graduation-cap me-2"></i>Formação Acadêmica
             </h4>
 
-            <div class="mb-3 border-start border-4 border-primary ps-3"> <h5 class="fw-bold mb-1">Desenvolvimento de Software Multiplataforma</h5>
-              <p class="text-muted mb-0">FATEC - São José dos Campos</p>
-              <small class="text-primary fw-bold">2024 - 2028 (Cursando)</small>
+            <div class="mb-3 border-start border-4 border-primary ps-3"> 
+              <h5 class="fw-bold mb-1 editavel" id="form-1-curso">Desenvolvimento de Software Multiplataforma</h5>
+              <p class="text-muted mb-0 editavel" id="form-1-inst">FATEC - São José dos Campos</p>
+              <small class="text-primary fw-bold editavel" id="form-1-ano">2024 - 2028 (Cursando)</small>
             </div>
 
             <div class="mb-3 border-start border-4 border-secondary ps-3">
-              <h5 class="fw-bold mb-1">Ensino Médio</h5>
-              <p class="text-muted mb-0">Escola Prof. Francisco Pereira da Silva</p>
-              <small class="text-secondary fw-bold">Concluído</small>
+              <h5 class="fw-bold mb-1 editavel" id="form-2-curso">Ensino Médio</h5>
+              <p class="text-muted mb-0 editavel" id="form-2-inst">Escola Prof. Francisco Pereira da Silva</p>
+              <small class="text-secondary fw-bold editavel" id="form-2-ano">Concluído</small>
             </div>
-<!-- tudo dentro do código dos cards foi feito pra estiliza-los-->
           </div>
         </div>
       </div>
@@ -142,60 +139,58 @@
               <span class="badge bg-primary rounded-pill">MySQL</span>
               <span class="badge bg-warning text-dark rounded-pill">AWS</span>
               <span class="badge bg-warning rounded-pill">Google Colab</span>
-              <spam class="badge bg-secondary rounded-pill">Docker</spam>
+              <span class="badge bg-secondary rounded-pill">Docker</span>
             </div>
 
             <div>
               <h6 class="fw-bold">Soft Skills</h6>
               <ul class="list-unstyled text-muted">
-                <li><i class="fa-solid fa-check text-success me-2"></i>Trabalho em Equipe</li>
-                <li><i class="fa-solid fa-check text-success me-2"></i>Comunicação</li>
-                <li><i class="fa-solid fa-check text-success me-2"></i>Resolução de Problemas</li>
+                <li class="editavel" id="soft-1"><i class="fa-solid fa-check text-success me-2"></i>Trabalho em Equipe</li>
+                <li class="editavel" id="soft-2"><i class="fa-solid fa-check text-success me-2"></i>Comunicação</li>
+                <li class="editavel" id="soft-3"><i class="fa-solid fa-check text-success me-2"></i>Resolução de Problemas</li>
               </ul>
             </div>
-
           </div>
         </div>
       </div>
-
-    </div> </div>
+    </div> 
+  </div>
 </section>  
-   <!--Parte do código para mostrar os certificados--> 
-<section id="certificados"class="py-5">
+
+<section id="certificados" class="py-5">
   <div class="container">
-    
     <h3 class="mb-4 fw-bold"><i class="fa-solid fa-certificate me-2 text-warning"></i>Certificações</h3>
 
     <div class="list-group shadow-sm">
       
       <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-4">
         <div>
-          <h5 class="mb-1 fw-bold">Participação no Projeto em Parceria com ITA</h5>
-          <p class="mb-0 text-muted small">Experiência prática e colaboração acadêmica.</p>
+          <h5 class="mb-1 fw-bold editavel" id="cert-1-titulo">Participação no Projeto em Parceria com ITA</h5>
+          <p class="mb-0 text-muted small editavel" id="cert-1-desc">Experiência prática e colaboração acadêmica.</p>
         </div>
         <a href="#" class="btn btn-outline-primary btn-sm rounded-pill">Visualizar</a>
       </div>
 
       <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-4">
         <div>
-          <h5 class="mb-1 fw-bold">Curso de Metodologia SCRUM</h5>
-          <p class="mb-0 text-muted small">FGV - Fundação Getulio Vargas</p>
+          <h5 class="mb-1 fw-bold editavel" id="cert-2-titulo">Curso de Metodologia SCRUM</h5>
+          <p class="mb-0 text-muted small editavel" id="cert-2-desc">FGV - Fundação Getulio Vargas</p>
         </div>
         <a href="certificações/14473084_certificado_Fgv.pdf" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">Visualizar</a>
       </div>
 
       <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-4">
         <div>
-          <h5 class="mb-1 fw-bold">Escola de Inovadores</h5>
-          <p class="mb-0 text-muted small">Curso de empreendedorismo e inovação.</p>
+          <h5 class="mb-1 fw-bold editavel" id="cert-3-titulo">Escola de Inovadores</h5>
+          <p class="mb-0 text-muted small editavel" id="cert-3-desc">Curso de empreendedorismo e inovação.</p>
         </div>
         <a href="./certificações/CERTIFICADO_-_2025-2 (1).pdf" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">Visualizar</a>
       </div>
 
       <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-4">
         <div>
-          <h5 class="mb-1 fw-bold">Ensino Médio Completo</h5>
-          <p class="mb-0 text-muted small">Documento de conclusão.</p>
+          <h5 class="mb-1 fw-bold editavel" id="cert-4-titulo">Ensino Médio Completo</h5>
+          <p class="mb-0 text-muted small editavel" id="cert-4-desc">Documento de conclusão.</p>
         </div>
         <a href="./certificações/DOC-20250713-WA0000..pdf" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">Visualizar</a>
       </div>
@@ -203,31 +198,27 @@
     </div>
   </div>
 </section>
-<!--Código para meus projetos-->
-  <section id="projetos" class="py-5 bg-light" id="projetos">
+
+<section id="projetos" class="py-5 bg-light">
   <div class="container">
-    
     <div class="text-center mb-5">
       <h3 class="fw-bold">Meus Projetos</h3>
-      <p class="text-muted">Confira alguns dos trabalhos que desenvolvi</p>
+      <p class="text-muted editavel" id="projetos-sub">Confira alguns dos trabalhos que desenvolvi</p>
     </div>
 
     <div class="row g-4">
-      
       <div class="col-md-6">
         <div class="card h-100 shadow border-0 hover-card">
-          <img class="card-img-top" src="imagens/l5.png" alt="Logo Planeja SJC" 
-               style="height: 200px; object-fit: cover;">
-          
+          <img class="card-img-top" src="imagens/l5.png" alt="Logo Planeja SJC" style="height: 200px; object-fit: cover;">
           <div class="card-body d-flex flex-column">
-            <h4 class="card-title fw-bold">Planeja SJC</h4>
+            <h4 class="card-title fw-bold editavel" id="proj-1-titulo">Planeja SJC</h4>
             
             <div class="mb-2">
               <span class="badge bg-primary bg-opacity-10">Python</span>
               <span class="badge bg-primary bg-opacity-10">Back-End</span>
             </div>
 
-            <p class="card-text text-muted">
+            <p class="card-text text-muted editavel" id="proj-1-desc">
               Este projeto teve como objetivo desenvolver um site visando o planejamento urbano. 
               Atuei no Back-End desenvolvendo gráficos e na pesquisa de dados demográficos.
             </p>
@@ -243,11 +234,9 @@
 
       <div class="col-md-6">
         <div class="card h-100 shadow border-0 hover-card">
-          <img class="card-img-top" src="imagens/Captura de tela 2025-09-08 075841.png" alt="Logo GamerX"
-               style="height: 200px; object-fit: cover;">
-          
+          <img class="card-img-top" src="imagens/Captura de tela 2025-09-08 075841.png" alt="Logo GamerX" style="height: 200px; object-fit: cover;">
           <div class="card-body d-flex flex-column">
-            <h4 class="card-title fw-bold">GamerX</h4>
+            <h4 class="card-title fw-bold editavel" id="proj-2-titulo">GamerX</h4>
             
             <div class="mb-2">
               <span class="badge bg-warning bg-opacity-10">HTML</span>
@@ -255,7 +244,7 @@
               <span class="badge bg-dark bg-opacity-10">Front-End</span>
             </div>
 
-            <p class="card-text text-muted">
+            <p class="card-text text-muted editavel" id="proj-2-desc">
               Site desenvolvido para mostrar uma visão aprofundada sobre games e notícias do mundo dos jogos eletrônicos. 
               Projeto desenvolvido inteiramente por mim.
             </p>
@@ -269,18 +258,16 @@
         </div>
       </div>
 
-    </div> </div>
+    </div> 
+  </div>
 </section>
 
-
-  
-</div>
 <footer id="contato" class="bg-dark text-white py-5 mt-5">
   <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <h3 class="fw-bold mb-3">Fale Comigo</h3>
-        <p class="mb-4 text-white-50">Estou disponível para projetos e parcerias.</p>
+        <h3 class="fw-bold mb-3 editavel" id="footer-titulo">Fale Comigo</h3>
+        <p class="mb-4 text-white-50 editavel" id="footer-desc">Estou disponível para projetos e parcerias.</p>
         <div class="d-flex justify-content-center gap-4 mb-4">
           <a href="https://www.linkedin.com/in/matheus-silva-274a19310/" target="_blank" class="text-white fs-2">
             <i class="fa-brands fa-linkedin hover-effect"></i>
@@ -294,22 +281,19 @@
         </div>
       </div>
     </div>
-    <hr class="border-secondary"> <div class="footer-bottom mt-3">
+    <hr class="border-secondary"> 
+    <div class="footer-bottom mt-3">
       <p class="mb-0 small text-white-50">
-        &copy; 2025 Matheus Bueno da Silva Barroso. Todos os direitos reservados.
+        &copy; 2026 Matheus Bueno da Silva Barroso. Todos os direitos reservados.
       </p>
     </div>
   </div>
 </footer>
 
-
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-        <script src="./script.js"></script>
-   </body>
+<script src="./script.js"></script>
+</body>
 </html>
