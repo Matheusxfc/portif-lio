@@ -111,3 +111,19 @@ body.dark-theme .list-group-item {
 body.dark-theme .text-muted {
     color: #aaa !important;
 }
+
+/* --- CORES OFICIAIS DAS TECNOLOGIAS --- */
+/* Linguagens & Frameworks */
+.badge-python { background-color: #3776AB; color: white; }
+.badge-html { background-color: #E34F26; color: white; }
+.badge-css { background-color: #1572B6; color: white; }
+.badge-sql { background-color: #4479A1; color: white; }
+.badge-bootstrap { background-color: #7952B3; color: white; }
+.badge-flask { background-color: #000000; color: white; border: 1px solid #444; }
+
+/* Ferramentas */
+.badge-git { background-color: #F05032; color: white; }
+.badge-mysql { background-color: #00758F; color: white; }
+.badge-aws { background-color: #232F3E; color: white; } /* Azul escuro da AWS */
+.badge-colab { background-color: #F9AB00; color: #212529; } /* Amarelo com texto escuro para leitura */
+.badge-docker { background-color: #2496ED; color: white; }
