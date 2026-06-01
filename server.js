@@ -1,225 +1,126 @@
 const express = require('express');
 const cors = require('cors');
+const mysql = require('mysql2');
 
 const app = express();
 
-// Avisa ao Express para permitir a comunicação com o Front-end e para entender JSON
+// Middlewares: Permitem que o Front-End acesse a API e que o Node entenda JSON
 app.use(cors());
 app.use(express.json());
 
-// =======================================================
-// BANCOS DE DADOS SIMULADOS (Arrays / Listas)
-// =======================================================
-
-let projetosDb = [
-    {
-        id: 1,
-        titulo: "Planeja SJC",
-        descricao: "Este projeto teve como objetivo desenvolver um site visando o planejamento urbano.",
-        link: "https://github.com/Matheusxfc/planeja-sjc"
-    }
-];
-
-let formacaoDb = [
-    {
-        id: 1,
-        curso: "Desenvolvimento de Software Multiplataforma",
-        inst: "FATEC - São José dos Campos",
-        ano: "2024 - 2028 (Cursando)"
-    },
-    {
-        id: 2,
-        curso: "Ensino Médio",
-        inst: "Escola Prof. Francisco Pereira da Silva",
-        ano: "Concluído"
-    }
-];
-
-let certificadosDb = [
-    {
-        id: 1,
-        titulo: "Participação no Projeto em Parceria com ITA",
-        desc: "Experiência prática e colaboração acadêmica.",
-        link: "#"
-    },
-    {
-        id: 2,
-        titulo: "Curso de Metodologia SCRUM",
-        desc: "FGV - Fundação Getulio Vargas",
-        link: "certificações/14473084_certificado_Fgv.pdf"
-    },
-    {
-        id: 3,
-        titulo: "Escola de Inovadores",
-        desc: "Curso de empreendedorismo e inovação.",
-        link: "./certificações/CERTIFICADO_-_2025-2 (1).pdf"
-    }
-];
-
-// Função genérica para encontrar o próximo ID disponível em qualquer lista
-function gerarId(listaDb) {
-    if (listaDb.length === 0) {
-        return 1;
-    }
-    // Cria um array só com os IDs e pega o maior valor, depois soma 1
-    return Math.max(...listaDb.map(item => item.id)) + 1;
-}
-
-// =======================================================
-// ROTAS DE CORREÇÃO
-// =======================================================
-app.get('/', (req, res) => {
-    res.send("API do Portfólio rodando em Node.js! Rotas disponíveis: /projetos, /formacao, /certificados.");
+// ==========================================
+// 1. CONFIGURAÇÃO DE CONEXÃO COM O BANCO
+// ==========================================
+const db = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'portfolio_db'
 });
 
-app.get('/favicon.ico', (req, res) => {
-    res.status(204).end();
+// Testa a conexão assim que o servidor liga
+db.connect((err) => {
+    if (err) {
+        console.error('Erro ao conectar no banco MySQL:', err.message);
+        return;
+    }
+    console.log('Conectado ao MySQL do XAMPP com sucesso! 🎉');
 });
 
-// =======================================================
-// 1. ROTAS: PROJETOS
-// =======================================================
-app.get('/projetos', (req, res) => {
-    res.status(200).json(projetosDb);
+// Rota de teste simples
+app.get('/testar-conexao', (req, res) => {
+    res.json({ mensagem: 'A API em Node.js está rodando perfeitamente!' });
 });
 
-app.post('/projetos', (req, res) => {
-    const dados = req.body;
-    const novoProjeto = {
-        id: gerarId(projetosDb),
-        titulo: dados.titulo,
-        descricao: dados.descricao,
-        link: dados.link
-    };
-    projetosDb.push(novoProjeto);
-    res.status(201).json({ mensagem: "Projeto criado com sucesso!", projeto: novoProjeto });
+// ==========================================
+// 2. ROTAS PARA PROJETOS
+// ==========================================
+app.get('/api/projetos', (req, res) => {
+    db.query('SELECT * FROM projetos ORDER BY id DESC', (err, results) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json(results);
+    });
 });
 
-app.put('/projetos/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const dados = req.body;
+app.post('/api/projetos', (req, res) => {
+    const { titulo, desc, link, img } = req.body;
+    const sql = 'INSERT INTO projetos (titulo, descricao, link_github, url_imagem) VALUES (?, ?, ?, ?)';
     
-    // Encontra a posição (index) do item no array
-    const index = projetosDb.findIndex(item => item.id === idItem);
+    db.query(sql, [titulo, desc, link, img], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(201).json({ mensagem: 'Projeto adicionado com sucesso!', id: result.insertId });
+    });
+});
+
+app.delete('/api/projetos/:id', (req, res) => {
+    const sql = 'DELETE FROM projetos WHERE id = ?';
+    db.query(sql, [req.params.id], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json({ mensagem: 'Projeto excluído com sucesso!' });
+    });
+});
+
+// ==========================================
+// 3. ROTAS PARA FORMAÇÃO
+// ==========================================
+app.get('/api/formacao', (req, res) => {
+    db.query('SELECT * FROM formacao ORDER BY id DESC', (err, results) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json(results);
+    });
+});
+
+app.post('/api/formacao', (req, res) => {
+    const { curso, inst, ano } = req.body;
+    const sql = 'INSERT INTO formacao (curso, instituicao, ano) VALUES (?, ?, ?)';
     
-    if (index !== -1) {
-        projetosDb[index].titulo = dados.titulo || projetosDb[index].titulo;
-        projetosDb[index].descricao = dados.descricao || projetosDb[index].descricao;
-        projetosDb[index].link = dados.link || projetosDb[index].link;
-        res.status(200).json({ mensagem: "Projeto atualizado!", projeto: projetosDb[index] });
-    } else {
-        res.status(404).json({ erro: "Projeto não encontrado" });
-    }
+    db.query(sql, [curso, inst, ano], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(201).json({ mensagem: 'Formação adicionada com sucesso!', id: result.insertId });
+    });
 });
 
-app.delete('/projetos/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const index = projetosDb.findIndex(item => item.id === idItem);
+app.delete('/api/formacao/:id', (req, res) => {
+    const sql = 'DELETE FROM formacao WHERE id = ?';
+    db.query(sql, [req.params.id], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json({ mensagem: 'Formação excluída com sucesso!' });
+    });
+});
+
+// ==========================================
+// 4. ROTAS PARA CERTIFICADOS
+// ==========================================
+app.get('/api/certificados', (req, res) => {
+    db.query('SELECT * FROM certificados ORDER BY id DESC', (err, results) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json(results);
+    });
+});
+
+app.post('/api/certificados', (req, res) => {
+    const { titulo, desc, link } = req.body;
+    const sql = 'INSERT INTO certificados (titulo, descricao, link_arquivo) VALUES (?, ?, ?)';
     
-    if (index !== -1) {
-        projetosDb.splice(index, 1); // Remove 1 item a partir daquele índice
-        res.status(200).json({ mensagem: "Projeto excluído!" });
-    } else {
-        res.status(404).json({ erro: "Projeto não encontrado" });
-    }
+    db.query(sql, [titulo, desc, link], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(201).json({ mensagem: 'Certificado adicionado com sucesso!', id: result.insertId });
+    });
 });
 
-// =======================================================
-// 2. ROTAS: FORMAÇÃO
-// =======================================================
-app.get('/formacao', (req, res) => {
-    res.status(200).json(formacaoDb);
+app.delete('/api/certificados/:id', (req, res) => {
+    const sql = 'DELETE FROM certificados WHERE id = ?';
+    db.query(sql, [req.params.id], (err, result) => {
+        if (err) return res.status(500).json({ erro: err.message });
+        res.status(200).json({ mensagem: 'Certificado excluído com sucesso!' });
+    });
 });
 
-app.post('/formacao', (req, res) => {
-    const dados = req.body;
-    const novaFormacao = {
-        id: gerarId(formacaoDb),
-        curso: dados.curso,
-        inst: dados.inst,
-        ano: dados.ano
-    };
-    formacaoDb.push(novaFormacao);
-    res.status(201).json({ mensagem: "Formação criada com sucesso!", formacao: novaFormacao });
-});
-
-app.put('/formacao/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const dados = req.body;
-    const index = formacaoDb.findIndex(item => item.id === idItem);
-    
-    if (index !== -1) {
-        formacaoDb[index].curso = dados.curso || formacaoDb[index].curso;
-        formacaoDb[index].inst = dados.inst || formacaoDb[index].inst;
-        formacaoDb[index].ano = dados.ano || formacaoDb[index].ano;
-        res.status(200).json({ mensagem: "Formação atualizada!", formacao: formacaoDb[index] });
-    } else {
-        res.status(404).json({ erro: "Formação não encontrada" });
-    }
-});
-
-app.delete('/formacao/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const index = formacaoDb.findIndex(item => item.id === idItem);
-    
-    if (index !== -1) {
-        formacaoDb.splice(index, 1);
-        res.status(200).json({ mensagem: "Formação excluída!" });
-    } else {
-        res.status(404).json({ erro: "Formação não encontrada" });
-    }
-});
-
-// =======================================================
-// 3. ROTAS: CERTIFICADOS
-// =======================================================
-app.get('/certificados', (req, res) => {
-    res.status(200).json(certificadosDb);
-});
-
-app.post('/certificados', (req, res) => {
-    const dados = req.body;
-    const novoCertificado = {
-        id: gerarId(certificadosDb),
-        titulo: dados.titulo,
-        desc: dados.desc,
-        link: dados.link
-    };
-    certificadosDb.push(novoCertificado);
-    res.status(201).json({ mensagem: "Certificado criado com sucesso!", certificado: novoCertificado });
-});
-
-app.put('/certificados/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const dados = req.body;
-    const index = certificadosDb.findIndex(item => item.id === idItem);
-    
-    if (index !== -1) {
-        certificadosDb[index].titulo = dados.titulo || certificadosDb[index].titulo;
-        certificadosDb[index].desc = dados.desc || certificadosDb[index].desc;
-        certificadosDb[index].link = dados.link || certificadosDb[index].link;
-        res.status(200).json({ mensagem: "Certificado atualizado!", certificado: certificadosDb[index] });
-    } else {
-        res.status(404).json({ erro: "Certificado não encontrado" });
-    }
-});
-
-app.delete('/certificados/:idItem', (req, res) => {
-    const idItem = parseInt(req.params.idItem);
-    const index = certificadosDb.findIndex(item => item.id === idItem);
-    
-    if (index !== -1) {
-        certificadosDb.splice(index, 1);
-        res.status(200).json({ mensagem: "Certificado excluído!" });
-    } else {
-        res.status(404).json({ erro: "Certificado não encontrado" });
-    }
-});
-
-// =======================================================
+// ==========================================
 // INICIALIZAÇÃO DO SERVIDOR
-// =======================================================
+// ==========================================
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT} - http://127.0.0.1:${PORT}`);
+    console.log(`🚀 Servidor Node.js rodando na porta ${PORT}`);
+    console.log(`Teste a conexão em: http://localhost:${PORT}/testar-conexao`);
 });
